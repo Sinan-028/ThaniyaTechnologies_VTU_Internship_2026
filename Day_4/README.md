@@ -1,14 +1,14 @@
-# Day 4 - Git & GitHub Practice
+# Day 4 – Git & GitHub Practice
 
-## Topics Practiced
+## Topics Covered
 - Git repository management
 - Branch creation and switching
-- Committing and pushing code
-- Merging feature branches
-- Resolving merge conflicts
+- Commit and push workflow
+- Merge conflicts
+- Pull requests and issues
 
 ## Files
-- app.js : simple JavaScript functions for Git practice
+app.js – simple JavaScript functions used for Git practice.
 
 ## Outcome
-Learned Git workflow used in real development teams.
+Learned Git workflows used in real-world collaborative development.
