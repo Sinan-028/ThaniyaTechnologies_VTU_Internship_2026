@@ -1,13 +1,14 @@
-console.log("Day 4 Git Practice");
+# Day 4 - Git & GitHub Practice
 
-function add(a,b){
-    return a + b;
-}
+## Topics Practiced
+- Git repository management
+- Branch creation and switching
+- Committing and pushing code
+- Merging feature branches
+- Resolving merge conflicts
 
-console.log(add(5,3));
+## Files
+- app.js : simple JavaScript functions for Git practice
 
-function multiply(a,b){
-    return a * b;
-}
-
-console.log(multiply(4,3));
+## Outcome
+Learned Git workflow used in real development teams.
