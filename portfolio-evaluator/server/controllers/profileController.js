@@ -6,20 +6,21 @@ exports.getProfile = async (req, res) => {
   try {
     const { username } = req.params;
 
-    console.log("Fetching GitHub user...");
-    const user = await githubService.getUser(username);
+    const existingReport = await Report.findOne({ username });
 
-    if (!user) {
-      return res.status(404).json({ error: "GitHub user not found" });
+    if (existingReport) {
+      console.log("⚡ Returning cached data");
+      return res.json(existingReport);
     }
 
-    console.log("Fetching repos...");
+    console.log("📡 Fetching data from GitHub...");
+    const user = await githubService.getUser(username);
     const repos = await githubService.getRepos(username) || [];
 
-    console.log("Calculating scores...");
+    console.log("🧠 Calculating scores...");
     const scores = scoringService.calculateScores(user, repos);
 
-    console.log("Saving to DB...");
+    console.log("💾 Saving report to database...");
     await Report.findOneAndUpdate(
       { username: user.login },
       {
@@ -33,7 +34,7 @@ exports.getProfile = async (req, res) => {
       { upsert: true, new: true }
     );
 
-    console.log("Sending response...");
+    console.log("✅ Sending response");
 
     res.json({
       username: user.login,
@@ -53,7 +54,7 @@ exports.getProfile = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("ERROR:", error.message); // 🔥 IMPORTANT
+    console.error("❌ Error:", error.message);
     res.status(500).json({ error: error.message });
   }
 };
