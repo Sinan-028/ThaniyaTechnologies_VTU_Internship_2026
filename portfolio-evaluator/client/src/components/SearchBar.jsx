@@ -8,7 +8,7 @@ const SearchBar = () => {
   const handleSearch = () => {
     if (username.trim()) {
       navigate(`/profile/${username}`);
-    }
+    };
   };
 
   return (
