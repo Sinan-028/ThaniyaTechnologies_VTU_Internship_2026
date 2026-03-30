@@ -23,6 +23,7 @@ const Profile = () => {
 
 return (
   <div className="container">
+    {/* Profile Card */}
     <div className="profile-card">
       <h2>{data.username}</h2>
 
@@ -46,6 +47,19 @@ return (
         Score: {data.scores.overall}/100
       </div>
     </div>
+
+    {/* Repo Section */}
+    <h2 style={{ marginTop: "30px" }}>Top Repositories</h2>
+
+    <div className="repo-list">
+  {data.repos?.slice(0, 6).map((repo, index) => (
+    <div key={index} className="repo-card">
+      <h3>{repo.name}</h3>
+      <p>⭐ {repo.stars} | 🍴 {repo.forks}</p>
+      <p>🧠 {repo.language}</p>
+    </div>
+  ))}
+</div>
   </div>
 );
 };
