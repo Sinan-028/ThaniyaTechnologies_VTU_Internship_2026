@@ -127,4 +127,34 @@ button:hover {
 .repo-card p {
   font-size: 14px;
   margin: 3px 0;
-}'
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.score-card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.score-card:hover {
+  transform: translateY(-5px);
+  background: #334155;
+}
+
+.score-card p {
+  font-size: 14px;
+  color: #cbd5f5;
+}
+
+.score-card h3 {
+  font-size: 22px;
+  color: #38bdf8;
+}
