@@ -158,3 +158,9 @@ button:hover {
   font-size: 22px;
   color: #38bdf8;
 }
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

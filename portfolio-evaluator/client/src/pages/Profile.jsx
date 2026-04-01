@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchProfile } from "../services/api";
+import ScoreChart from "../components/ScoreChart";
+import LanguageChart from "../components/LanguageChart";
 
 const Profile = () => {
   const { username } = useParams();
@@ -23,7 +25,7 @@ const Profile = () => {
 
   return (
     <div className="container">
-      
+
       {/* 🔹 Profile Card */}
       <div className="profile-card">
         <h2>{data.username}</h2>
@@ -49,7 +51,7 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* 🔹 Score Breakdown (Day 11) */}
+      {/* 🔹 Score Breakdown */}
       <h2 style={{ marginTop: "30px" }}>Score Breakdown</h2>
 
       <div className="score-grid">
@@ -77,6 +79,20 @@ const Profile = () => {
           <p>Hiring Ready</p>
           <h3>{data.scores.hiringReady}</h3>
         </div>
+      </div>
+
+      {/* 🔹 Radar Chart */}
+      <h2 style={{ marginTop: "30px" }}>Score Visualization</h2>
+
+      <div className="chart-container">
+        <ScoreChart scores={data.scores} />
+      </div>
+
+      {/* 🔹 Language Chart */}
+      <h2 style={{ marginTop: "30px" }}>Language Usage</h2>
+
+      <div className="chart-container">
+        <LanguageChart repos={data.repos || []} />
       </div>
 
       {/* 🔹 Repo Section */}
