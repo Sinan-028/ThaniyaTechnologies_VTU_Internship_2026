@@ -49,6 +49,14 @@ const Profile = () => {
         <div className="score">
           Score: {data.scores.overall}/100
         </div>
+
+        {/* 🔥 Share Button (Day 13) */}
+        <button
+          style={{ marginTop: "10px" }}
+          onClick={() => window.open(`/report/${data.username}`, "_blank")}
+        >
+          🔗 Share Profile
+        </button>
       </div>
 
       {/* 🔹 Score Breakdown */}
@@ -107,6 +115,7 @@ const Profile = () => {
           </div>
         ))}
       </div>
+
     </div>
   );
 };
