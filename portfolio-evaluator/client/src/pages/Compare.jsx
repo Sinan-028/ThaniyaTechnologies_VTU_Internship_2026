@@ -28,38 +28,50 @@ const Compare = () => {
     }
   };
 
+  const getUsername = (data) => data?.username || data?.login || "N/A";
+  const getAvatar = (data) => data?.avatar || data?.avatar_url || "";
+  const getFollowers = (data) => data?.followers ?? 0;
+  const getRepos = (data) => data?.publicRepos ?? data?.public_repos ?? 0;
+  const getScore = (data) => data?.scores?.overall ?? 0;
+
   return (
     <div className="container">
-      <h2>Compare Developers</h2>
+      <h2>⚖️ Compare Developers</h2>
 
-      <input
-        placeholder="First username"
-        value={user1}
-        onChange={(e) => setUser1(e.target.value)}
-      />
+      <div className="compare-inputs">
+        <input
+          placeholder="First username"
+          value={user1}
+          onChange={(e) => setUser1(e.target.value)}
+        />
 
-      <input
-        placeholder="Second username"
-        value={user2}
-        onChange={(e) => setUser2(e.target.value)}
-      />
+        <input
+          placeholder="Second username"
+          value={user2}
+          onChange={(e) => setUser2(e.target.value)}
+        />
+      </div>
 
       <button onClick={handleCompare}>Compare</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {data1 && data2 && (
-        <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-          <div className="profile-card">
-            <h3>{data1.username}</h3>
-            <p>Score: {data1.scores?.overall}</p>
-            <p>Followers: {data1.followers}</p>
+        <div className="compare-grid">
+          <div className="compare-card">
+            <img src={getAvatar(data1)} alt="" className="avatar" />
+            <h3>{getUsername(data1)}</h3>
+            <p>Score: {getScore(data1)}</p>
+            <p>Followers: {getFollowers(data1)}</p>
+            <p>Repos: {getRepos(data1)}</p>
           </div>
 
-          <div className="profile-card">
-            <h3>{data2.username}</h3>
-            <p>Score: {data2.scores?.overall}</p>
-            <p>Followers: {data2.followers}</p>
+          <div className="compare-card">
+            <img src={getAvatar(data2)} alt="" className="avatar" />
+            <h3>{getUsername(data2)}</h3>
+            <p>Score: {getScore(data2)}</p>
+            <p>Followers: {getFollowers(data2)}</p>
+            <p>Repos: {getRepos(data2)}</p>
           </div>
         </div>
       )}
