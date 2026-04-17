@@ -25,7 +25,7 @@ const Profile = () => {
         setData(result);
 
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Something went wrong");
       } finally {
         setLoading(false);
       }
@@ -34,18 +34,23 @@ const Profile = () => {
     getData();
   }, [username]);
 
+  //  Download PDF 
   const downloadPDF = async () => {
     const element = document.querySelector(".container");
 
-    const canvas = await html2canvas(element);
+    const canvas = await html2canvas(element, { scale: 2 });
     const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF();
-    pdf.addImage(imgData, "PNG", 0, 0);
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const imgWidth = 210;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
     pdf.save(`${data.username}-report.pdf`);
   };
 
- 
+  //  Save to favorites 
   const saveFavorite = () => {
     const existing = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -67,7 +72,7 @@ const Profile = () => {
     return <h2 style={{ color: "red", textAlign: "center" }}>{error}</h2>;
   }
 
-  if (!data) {
+  if (!data && !loading && !error) {
     return <h2 style={{ textAlign: "center" }}>Search for a GitHub user</h2>;
   }
 
@@ -98,57 +103,40 @@ const Profile = () => {
           Score: {data.scores?.overall || 0}/100
         </div>
 
-        {/* 🔥 Buttons */}
-        <button
-          style={{ marginTop: "10px" }}
-          onClick={() => window.open(`/report/${data.username}`, "_blank")}
-        >
-          🔗 Share Profile
-        </button>
+        {/*  Buttons */}
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center", marginTop: "10px" }}>
+          
+          <button onClick={() => window.open(`/report/${data.username}`, "_blank")}>
+            🔗 Share
+          </button>
 
-        <button
-          style={{ marginTop: "10px" }}
-          onClick={downloadPDF}
-        >
-          📄 Download Report
-        </button>
+          <button onClick={downloadPDF}>
+            📄 Download
+          </button>
 
-        <button
-          style={{ marginTop: "10px" }}
-          onClick={saveFavorite}
-        >
-          ⭐ Save Profile
-        </button>
+          <button onClick={saveFavorite}>
+            ⭐ Save
+          </button>
+
+        </div>
       </div>
 
       {/* 🔹 Score Breakdown */}
       <h2 style={{ marginTop: "30px" }}>Score Breakdown</h2>
 
       <div className="score-grid">
-        <div className="score-card">
-          <p>Activity</p>
-          <h3>{data.scores?.activity || 0}</h3>
-        </div>
-
-        <div className="score-card">
-          <p>Code Quality</p>
-          <h3>{data.scores?.codeQuality || 0}</h3>
-        </div>
-
-        <div className="score-card">
-          <p>Diversity</p>
-          <h3>{data.scores?.diversity || 0}</h3>
-        </div>
-
-        <div className="score-card">
-          <p>Community</p>
-          <h3>{data.scores?.community || 0}</h3>
-        </div>
-
-        <div className="score-card">
-          <p>Hiring Ready</p>
-          <h3>{data.scores?.hiringReady || 0}</h3>
-        </div>
+        {[
+          ["Activity", data.scores?.activity],
+          ["Code Quality", data.scores?.codeQuality],
+          ["Diversity", data.scores?.diversity],
+          ["Community", data.scores?.community],
+          ["Hiring Ready", data.scores?.hiringReady],
+        ].map(([label, value]) => (
+          <div key={label} className="score-card">
+            <p>{label}</p>
+            <h3>{value || 0}</h3>
+          </div>
+        ))}
       </div>
 
       {/* 🔹 Charts */}

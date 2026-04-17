@@ -59,3 +59,63 @@ Learned how backend communicates with a database using Mongoose. Understood sche
 ## Result
 
 Successfully connected Node.js server with MongoDB and performed data insertion and retrieval using APIs.
+
+# 🚀 Developer Portfolio Evaluator
+
+A full-stack MERN application that analyzes GitHub profiles and provides insights like activity, code quality, diversity, and hiring readiness.
+
+---
+
+## ✨ Features
+
+- 🔍 GitHub profile analysis  
+- 📊 Score calculation system  
+- ⚖️ Compare developers  
+- 📄 Download report as PDF  
+- ⭐ Save favorite profiles  
+
+---
+
+## 🛠️ Tech Stack
+
+- Frontend: React, Vite  
+- Backend: Node.js, Express  
+- Database: MongoDB  
+- Charts: Chart.js  
+- API: GitHub REST API  
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Home Page
+![Home](./screenshots/home.jpeg)
+
+### 👤 Profile Page
+![Profile](./screenshots/profile.jpeg)
+
+### 📊 Score Breakdown
+![Score Breakdown](./screenshots/score-breakdown.jpeg)
+
+### 📈 Visualization
+![Visualization](./screenshots/visualization.jpeg)
+
+### 🧠 Language Usage
+![Language](./screenshots/language.jpeg)
+
+### 📂 Top Repositories
+![Top Repos](./screenshots/top-repos.jpeg)
+
+### ⚖️ Compare Developers
+![Compare](./screenshots/compare.jpeg)
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/Sinan-028/ThaniyaTechnologies_VTU_Internship_2026
+
+### Live Demo
+https://thaniya-technologies-vtu-internship.vercel.app/
