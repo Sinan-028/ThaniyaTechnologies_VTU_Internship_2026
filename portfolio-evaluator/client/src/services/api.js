@@ -2,13 +2,13 @@ import axios from "axios";
 
 const API = `${import.meta.env.VITE_API_BASE_URL}/api/profile`;
 
-//  Create axios instance
+//  Create axios 
 const api = axios.create({
   baseURL: API,
-  timeout: 10000, // 10 sec timeout
+  timeout: 10000,
 });
 
-//  Retry helper (for rate limit)
+//  Retry helper 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const fetchProfile = async (username, retry = 1) => {
