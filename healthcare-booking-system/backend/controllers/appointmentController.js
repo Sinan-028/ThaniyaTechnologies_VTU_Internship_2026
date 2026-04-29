@@ -2,7 +2,6 @@ import Appointment from '../models/appointmentModel.js';
 
 export const bookAppointment = async (req, res) => {
     try {
-        // Change 'doctorId' to match the key coming from Postman
         const { doctorId, appointmentDate } = req.body;
         
         if (!req.user || !req.user.id) {
@@ -11,7 +10,7 @@ export const bookAppointment = async (req, res) => {
 
         const newAppointment = await Appointment.create({
             patient: req.user.id,
-            doctor: doctorId, // <--- YOU WERE MISSING THIS LINE
+            doctor: doctorId, 
             appointmentDate
         });
         
@@ -28,6 +27,32 @@ export const getMyAppointments = async (req, res) => {
             .populate('doctor', 'name specialization'); // Populates doctor details
         
         res.json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//fr dctrs dshbrd
+export const getDoctorAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({ doctor: req.user.id })
+            .populate('patient', 'name email'); 
+        res.json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//dctr or ptnt can chnge stts 
+export const updateAppointmentStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const updatedAppointment = await Appointment.findByIdAndUpdate(
+            req.params.id, 
+            { status }, 
+            { new: true }
+        );
+        res.json(updatedAppointment);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
