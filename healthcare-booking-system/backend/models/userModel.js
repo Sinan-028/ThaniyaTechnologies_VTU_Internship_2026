@@ -1,12 +1,51 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ['patient', 'doctor', 'admin'], default: 'patient' },
-    specialization: { type: String }, // Only mndtry if role is dctr
-    isAvailable: { type: Boolean, default: true } // For dctrs
-}, { timestamps: true });
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true
+    },
+
+    password: {
+      type: String,
+      required: true,
+      minlength: 6
+    },
+
+    role: {
+      type: String,
+      enum: ['patient', 'doctor', 'admin'],
+      default: 'patient'
+    },
+
+    //  Only required if user is a doctor
+    specialization: {
+      type: String,
+      trim: true,
+      required: function () {
+        return this.role === 'doctor';
+      }
+    },
+
+    // Doctor availability
+    isAvailable: {
+      type: Boolean,
+      default: true
+    }
+  },
+  {
+    timestamps: true
+  }
+);
 
 export default mongoose.model('User', userSchema);
